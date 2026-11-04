@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Generator Deskripsi Akun</title>
+<style>
+:root{
+  --bg:#f4f4f5; --card:#ffffff; --text:#111111; --muted:#6b7280;
+  --border:#e4e4e7; --accent:#111111; --accent-text:#facc15; --field:#ffffff;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a0a0a; --card:#161616; --text:#f5f5f5; --muted:#a1a1aa;
+    --border:#2a2a2a; --accent:#facc15; --accent-text:#111111; --field:#0f0f0f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a0a0a; --card:#161616; --text:#f5f5f5; --muted:#a1a1aa;
+  --border:#2a2a2a; --accent:#facc15; --accent-text:#111111; --field:#0f0f0f;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  line-height:1.5; min-height:100vh;
+}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+h1{font-size:1.25rem;margin:0}
+.toggle{
+  background:var(--card);color:var(--text);border:1px solid var(--border);
+  border-radius:8px;padding:6px 10px;cursor:pointer;font-size:.85rem
+}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:16px;margin-bottom:14px
+}
+h2{font-size:1rem;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:4px}
+input[type=text],select,textarea{
+  width:100%;background:var(--field);color:var(--text);
+  border:1px solid var(--border);border-radius:8px;padding:9px 10px;font-size:.95rem;
+  font-family:inherit
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);border-color:transparent}
+.check{display:flex;align-items:center;gap:8px;font-size:.92rem;margin:8px 0}
+.check input{width:18px;height:18px;accent-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{
+  background:transparent;color:var(--text);border:1px solid var(--border);
+  border-radius:999px;padding:4px 10px;font-size:.8rem;cursor:pointer
+}
+.chip:active{background:var(--border)}
+.btn{
+  width:100%;background:var(--accent);color:var(--accent-text);border:0;
+  border-radius:10px;padding:12px;font-size:1rem;font-weight:600;cursor:pointer
+}
+.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+.row{display:flex;gap:8px;margin-top:10px}
+.row .btn{flex:1}
+output{
+  display:block;white-space:pre-wrap;word-break:break-word;
+  background:var(--field);border:1px solid var(--border);border-radius:8px;
+  padding:12px;font-size:.92rem;min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospace
+}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:9px 6px;font-size:.9rem;cursor:pointer}
+.seg button.active{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{border-radius:10px;flex-shrink:0}
+.store{font-size:.7rem;letter-spacing:.18em;color:var(--accent);font-weight:700}
+.hotrow{margin-top:8px}
+.plus{width:100%;margin-top:10px}
+.hint{font-size:.78rem;color:var(--muted);margin-top:6px}
+.toast{text-align:center;font-size:.85rem;color:var(--accent);min-height:1.2em;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg width="44" height="44" viewBox="0 0 1254 1254" aria-label="AZII STORE" role="img"><rect width="1254" height="1254" fill="#000"/><polygon fill="#fff" points="730,210 385,465 540,415 160,950 392,818 483,693 397,730 535,555 395,1068 537,915 560,797 738,703 597,686"/><polygon fill="#fff" points="705,423 1080,300 886,543 908,462 735,520 750,553 1075,615 905,790 395,1068 537,915 602,843 855,705 870,663 647,625"/></svg>
+      <div>
+        <div class="store">AZII STORE</div>
+        <h1>Generator Deskripsi Akun</h1>
+      </div>
+    </div>
+    <button class="toggle" id="themeBtn" type="button">Ganti tema</button>
+  </header>
+
+  <button class="btn" id="copyKode" type="button" style="margin-bottom:14px">Salin Kode 0 Skill</button>
+
+  <div class="card">
+    <h2>Info Umum</h2>
+    <div class="grid">
+      <div>
+        <label>Status bind</label>
+        <input type="hidden" id="bind" value="On">
+        <div class="seg" id="bindGroup">
+          <button type="button" class="active" data-val="On">Bind On</button>
+          <button type="button" data-val="Kosong">Bind Kosong</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Spek Akun</h2>
+    <div class="grid">
+      <div>
+        <label for="nickname">Nickname</label>
+        <input type="text" id="nickname" placeholder="Masukkan nickname free fire">
+      </div>
+      <div>
+        <label for="character">Character</label>
+        <input type="text" id="character" placeholder="Masukkan jumlah karakter yang tersedia">
+      </div>
+      <div>
+        <label for="diamonds">Diamonds</label>
+        <input type="text" id="diamonds" placeholder="Masukkan jumlah diamond yang tersedia">
+      </div>
+      <div>
+        <label for="skin">Vault</label>
+        <input type="text" id="skin" placeholder="Masukkan jumlah Vault(Baju)">
+      </div>
+      <div>
+        <label for="winrate">Win Rate</label>
+        <input type="text" id="winrate" placeholder="Masukkan win rate">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Rank</h2>
+    <div class="grid">
+      <div>
+        <label for="rankBr">Rank Br</label>
+        <input type="text" id="rankBr" placeholder="Masukkan rank Br, contoh: Platinum I">
+      </div>
+      <div>
+        <label for="rankCs">Rank Cs</label>
+        <input type="text" id="rankCs" placeholder="Masukkan rank Cs, contoh: Platinum I">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Hasil Deskripsi</h2>
+    <output id="result"></output>
+    <div class="row">
+      <button class="btn" id="copyBtn" type="button">Salin Deskripsi</button>
+      <button class="btn secondary" id="resetBtn" type="button">Reset</button>
+    </div>
+    <div class="toast" id="toast"></div>
+    <p class="hint">Field yang dikosongkan tidak akan muncul di hasil.</p>
+  </div>
+
+  <div class="card">
+    <h2>Judul Produk</h2>
+    <div id="hotList">
+      <div class="hotrow"><input type="text" class="hot" placeholder="Masukkan spek hots"></div>
+    </div>
+    <button class="btn secondary plus" id="addHot" type="button">+</button>
+    <label style="margin-top:12px">Hasil judul</label>
+    <output id="judul"></output>
+    <div class="row">
+      <button class="btn" id="copyJudul" type="button">Salin Judul</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Ucapan Terima Kasih</h2>
+    <div class="seg">
+      <button type="button" data-ucapan="On">Ucapan Bind On</button>
+      <button type="button" data-ucapan="Kosong">Ucapan Bind Kosong</button>
+    </div>
+    <p class="hint">Pilih sesuai status bind akun.</p>
+  </div>
+
+  <div class="card">
+    <h2>Create Random Password</h2>
+    <output id="pwOut" style="min-height:auto;font-size:1.05rem;text-align:center"></output>
+    <div class="row">
+      <button class="btn" id="pwCopy" type="button">Salin Password</button>
+      <button class="btn secondary" id="pwNew" type="button">Buat Baru</button>
+    </div>
+    <div class="toast" id="pwToast"></div>
+    <p class="hint">15 karakter huruf dan angka acak. Tanpa karakter khusus, jadi bisa dipakai untuk akun Google. Password tidak disimpan di mana pun dan tidak pernah berulang. Dibuat di sesi ini: <span id="pwCount">0</span></p>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+// Tema terang/gelap
+const root = document.documentElement;
+$('themeBtn').addEventListener('click', () => {
+  const current = root.getAttribute('data-theme');
+  const isDark = current === 'dark' || (!current && matchMedia('(prefers-color-scheme: dark)').matches);
+  root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// Tombol isi cepat
+document.querySelectorAll('[data-fill]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    $(btn.dataset.fill).value = btn.dataset.val;
+    build();
+  });
+});
+document.querySelectorAll('[data-prefix]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const el = $('nickname');
+    if (!el.value.startsWith(btn.dataset.prefix)) el.value = btn.dataset.prefix + el.value;
+    build();
+  });
+});
+
+function fmtRank(v, prefix) {
+  if (!v) return '';
+  if (v === '-') return '-';
+  return v.toLowerCase().startsWith(prefix.toLowerCase()) ? v : prefix + ' ' + v;
+}
+
+function build() {
+  const lines = [];
+  lines.push('MOHON DI BACA!!');
+  lines.push('<Hr>Stok Ready!');
+  lines.push('server Indonesia!');
+
+  if ($('bind').value === 'On') {
+    lines.push('bind : On (Proses Rebind Sepaket)');
+    lines.push('Login Google');
+    lines.push('sedang Proses Penggantian Bind, Pembeli Dilarang Membatalkan Bind Untuk Keamanan Akun!');
+  } else {
+    lines.push('bind : Kosong');
+    lines.push('Login Manajemen Facebook');
+  }
+  lines.push('Aman 100%');
+  lines.push('Garansi Anti Hack Back 100%<br>');
+
+  const fields = [
+    ['nickname', 'nickname'],
+    ['character', 'character'],
+    ['diamonds', 'diamonds'],
+    ['skin', 'skin'],
+    ['winrate', 'win Rate']
+  ];
+  fields.forEach(([id, label]) => {
+    const val = $(id).value.trim();
+    if (val) lines.push(`${label} : <br>${val}<br>`);
+  });
+
+  const br = fmtRank($('rankBr').value.trim(), 'Br Ranked');
+  const cs = fmtRank($('rankCs').value.trim(), 'Cs Ranked');
+  if (br || cs) {
+    let rankText = `rank : <br>${br}`;
+    if (cs) rankText += `\n${cs}`;
+    lines.push(rankText + '<br>');
+  }
+
+  $('result').textContent = lines.join('\n');
+}
+
+document.querySelectorAll('input, select').forEach(el => {
+  el.addEventListener('input', build);
+  el.addEventListener('change', build);
+});
+
+// Salin kode 0 skill
+const KODE_0_SKILL = '#FF#dGJ/ZW9jYmd4dW9yZH9xZ38=';
+$('copyKode').addEventListener('click', async () => {
+  const b = $('copyKode');
+  try {
+    await navigator.clipboard.writeText(KODE_0_SKILL);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = KODE_0_SKILL; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+  }
+  b.textContent = 'Kode tersalin ✓';
+  setTimeout(() => b.textContent = 'Salin Kode 0 Skill', 2000);
+});
+
+$('copyBtn').addEventListener('click', async () => {
+  const text = $('result').textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    $('toast').textContent = 'Deskripsi tersalin ✓';
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+    $('toast').textContent = 'Deskripsi tersalin ✓';
+  }
+  setTimeout(() => $('toast').textContent = '', 2000);
+});
+
+$('resetBtn').addEventListener('click', () => {
+  document.querySelectorAll('input[type=text]').forEach(i => i.value = '');
+  build();
+});
+
+const msgOn = [
+  '🎮 Terima kasih sudah berbelanja di AZII STORE!🎮 ',
+  '',
+  'Halo kak! 👋 ',
+  'Semoga akun Free Fire-nya aman, nyaman dipakai, dan bikin main makin seru! 🔥',
+  '#🔐 Catatan login: Akun ini menggunakan login Google. Jangan membatalkan atau melepas proses bind ke akun Free Fire yang sedang berjalan, dan tunggu sampai benar-benar selesai. Jangan terburu-buru mengubah pengaturan akun selama proses bind. Jika ada kendala login atau bind, hubungi admin AZII STORE dulu.',
+  '#🔒 Keamanan akun: Jangan bagikan kode OTP, kata sandi, atau info login ke siapa pun.',
+  '',
+  '⭐ Kalau kakak puas, jangan lupa beri ulasan dan rating terbaik ya! 🥰',
+  'Terima kasih dan selamat bermain! 🏆🔥',
+  '— AZII STORE ❤️'
+];
+const msgEmpty = [
+  '🎮 Terima kasih sudah berbelanja di AZII STORE! 🎮',
+  'Halo kak! 👋 ',
+  'Semoga akun Free Fire-nya cocok dan bikin main makin seru! 🔥',
+  '#🔐 Catatan login: Akun ini menggunakan login Facebook. Pastikan kakak memakai akun Facebook yang sesuai dengan info dari admin, dan pastikan akunnya bisa diakses sebelum login. Kalau ada kendala, segera hubungi admin AZII STORE.',
+  '#🔒 Keamanan akun: Jaga kerahasiaan email, kata sandi, dan kode OTP, jangan bagikan info login ke siapa pun.',
+  '',
+  '⭐ Kalau kakak puas, jangan lupa beri ulasan dan rating terbaik ya! 🥰',
+  'Terima kasih dan semoga akunnya membawa banyak BOOYAH! 🏆🔥',
+  '— AZII STORE ❤️'
+];
+
+async function copyMessage(list) {
+  const text = list.join('\n');
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+  }
+  $('toast').textContent = 'Ucapan tersalin ✓';
+  setTimeout(() => $('toast').textContent = '', 2000);
+}
+document.querySelector('[data-ucapan="On"]').addEventListener('click', () => copyMessage(msgOn));
+document.querySelector('[data-ucapan="Kosong"]').addEventListener('click', () => copyMessage(msgEmpty));
+
+document.querySelectorAll('#bindGroup button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#bindGroup button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    $('bind').value = btn.dataset.val;
+    build();
+  });
+});
+
+function buildJudul() {
+  const items = [...document.querySelectorAll('#hotList .hot')].map(i => i.value.trim()).filter(Boolean);
+  $('judul').textContent = ['Akun Free Fire', ...items].join(' | ');
+}
+$('hotList').addEventListener('input', buildJudul);
+$('addHot').addEventListener('click', () => {
+  const row = document.createElement('div');
+  row.className = 'hotrow';
+  row.innerHTML = '<input type="text" class="hot" placeholder="Masukkan spek hots">';
+  $('hotList').appendChild(row);
+  row.querySelector('input').focus();
+  buildJudul();
+});
+$('copyJudul').addEventListener('click', async () => {
+  const text = $('judul').textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+  }
+  $('toast').textContent = 'Judul tersalin ✓';
+  setTimeout(() => $('toast').textContent = '', 2000);
+});
+buildJudul();
+
+build();
+
+// Random password generator (huruf dan angka acak, tanpa karakter khusus)
+const PW_LEN = 15;
+const PW_KEY = 'azii_used_passwords';
+// Privasi: password tidak disimpan di mana pun. Riwayat lama (jika ada) dihapus.
+try { localStorage.removeItem(PW_KEY); } catch (e) {}
+const LOWER = 'abcdefghijklmnopqrstuvwxyz', UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', DIGITS = '0123456789';
+const ALNUM = LOWER + UPPER + DIGITS;
+const usedPw = new Set(); // hanya di memori, hilang saat halaman ditutup/refresh
+
+function randInt(max) {
+  const buf = new Uint32Array(1);
+  const limit = Math.floor(4294967296 / max) * max;
+  do { crypto.getRandomValues(buf); } while (buf[0] >= limit);
+  return buf[0] % max;
+}
+function makePassword() {
+  for (;;) {
+    let tail = '';
+    for (let i = 0; i < PW_LEN; i++) tail += ALNUM[randInt(ALNUM.length)];
+    if (!/[a-z]/.test(tail) || !/[A-Z]/.test(tail) || !/[0-9]/.test(tail)) continue;
+    const pw = tail;
+    if (usedPw.has(pw)) continue;
+    usedPw.add(pw);
+    return pw;
+  }
+}
+function newPassword() {
+  $('pwOut').textContent = makePassword();
+  $('pwCount').textContent = usedPw.size;
+}
+$('pwNew').addEventListener('click', newPassword);
+$('pwCopy').addEventListener('click', async () => {
+  const text = $('pwOut').textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+  }
+  $('pwToast').textContent = 'Password tersalin ✓';
+  setTimeout(() => $('pwToast').textContent = '', 2000);
+});
+newPassword();
+</script>
+</body>
+</html>
